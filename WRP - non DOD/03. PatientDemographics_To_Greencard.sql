@@ -54,7 +54,7 @@ BEGIN
 	--SET @message = 'Created Patient Id: ' + CAST(@PatientId as varchar);
 	--PRINT @message;
 
-	SELECT @PersonId, @PatientId;
+	--SELECT @PersonId, @PatientId;
 End
 
 GO

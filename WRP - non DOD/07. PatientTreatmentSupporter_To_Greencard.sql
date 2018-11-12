@@ -88,7 +88,7 @@ BEGIN
 		--Now Drop Temporary Tables
 		DROP TABLE #Tdtl_PatientContacts
 
-	SELECT @PatientTreatmentSupporterID;
+	--SELECT @PatientTreatmentSupporterID;
 END
 
 GO

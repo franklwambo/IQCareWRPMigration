@@ -41,7 +41,7 @@ BEGIN
 			--PRINT @message;
 		END
 
-		SELECT @PersonContactID;
+		--SELECT @PersonContactID;
 END
 
 GO

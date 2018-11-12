@@ -38,11 +38,11 @@ BEGIN
 
 	DECLARE @message varchar(max);
 
-	IF @CCCNumber IS NOT NULL AND @ModuleId = 5
+	IF @CCCNumber IS NOT NULL --AND @ModuleId = 5
 		BEGIN
 			-- Patient Identifier
 
-			IF NOT EXISTS(SELECT * FROM PatientIdentifier m WHERE m.patientid=@PatientId)
+			IF NOT EXISTS(SELECT * FROM PatientIdentifier m WHERE m.patientid=@PatientId)  and @EnrollmentId is not null
 					INSERT INTO [dbo].[PatientIdentifier] ([PatientId], [PatientEnrollmentId], [IdentifierTypeId], [IdentifierValue] ,[DeleteFlag] ,[CreatedBy] ,[CreateDate] ,[Active] ,[AuditData])
 			VALUES (@PatientId , @EnrollmentId ,(select top 1 Id from Identifiers where Code='CCCNumber') ,@CCCNumber ,0 ,@UserID ,@CreateDate ,0 ,NULL);
 
@@ -88,7 +88,7 @@ BEGIN
 	--SET @message = 'Created PatientMaritalStatus Id: ' + CAST(@PatientMaritalStatusID as varchar);
 	--PRINT @message;
 
-	SELECT @PatientIdentifierId, @ServiceEntryPointId, @PatientMaritalStatusID
+	--SELECT @PatientIdentifierId, @ServiceEntryPointId, @PatientMaritalStatusID
 END
 
 GO

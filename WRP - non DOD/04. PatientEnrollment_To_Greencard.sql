@@ -36,7 +36,7 @@ BEGIN
 	CREATE TABLE #TLnk_PatientProgramStart (Id INT IDENTITY(1,1), ModuleId int, [StartDate] datetime, [UserID] int, [CreateDate] datetime);
 
 	INSERT INTO #TLnk_PatientProgramStart(ModuleId, [StartDate], [UserID], [CreateDate])
-	SELECT ModuleId, [StartDate], Isnull([UserID],1) , Isnull([CreateDate],getdate()) FROM Lnk_PatientProgramStart WHERE Ptn_pk=@ptn_pk And  ModuleId = 5;
+	SELECT ModuleId, [StartDate], Isnull([UserID],1) , Isnull([CreateDate],getdate()) FROM Lnk_PatientProgramStart WHERE Ptn_pk=@ptn_pk And  ModuleId = @ModuleId;
 
 	DECLARE @UserID_Enrollment int, @CreateDate_Enrollment datetime;
 
@@ -46,7 +46,7 @@ BEGIN
 		WHILE (@j <= @countj)
 			BEGIN
 				SELECT @ModuleId = ModuleId, @StartDate = [StartDate], @UserID_Enrollment = isnull([UserID],1), @CreateDate_Enrollment = isnull([CreateDate],getdate())
-				 FROM #TLnk_PatientProgramStart WHERE Id = @j AND ModuleId = 5;
+				 FROM #TLnk_PatientProgramStart WHERE Id = @j AND ModuleId = @ModuleId;
 
 				BEGIN TRY
 					BEGIN TRANSACTION
@@ -55,8 +55,8 @@ BEGIN
 							--SET @message = '----- Enrollment Start Date: ' + CAST(@StartDate as varchar(50));
 							--PRINT @message;
 
-								IF @ModuleId = 5
-								BEGIN
+								--IF @ModuleId = @ModuleId
+								--BEGIN
 									--PRINT ' ';
 									--SET @message = '----- Transfer In is (1), New (0) : ' + CAST(@transferIn as varchar(50));
 									--PRINT @message;
@@ -88,7 +88,7 @@ BEGIN
 									SET @EnrollmentId = SCOPE_IDENTITY();
 									--SET @message = 'Created PatientEnrollment Id: ' + CAST(@EnrollmentId as varchar);
 									--PRINT @message;
-								END
+								--END
 					IF @@TRANCOUNT > 0 
 						COMMIT
 				END TRY
@@ -110,7 +110,7 @@ BEGIN
 	--Now Drop Temporary Tables
 	DROP TABLE #TLnk_PatientProgramStart
 
-	SELECT @EnrollmentId, @ModuleId, @StartDate;
+	--SELECT @EnrollmentId, @ModuleId, @StartDate;
 END
 
 GO

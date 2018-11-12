@@ -123,6 +123,8 @@ BEGIN
 						DECLARE @ModuleId int, @StartDate datetime;
 
 						SET @PatientId = (SELECT top 1 id FROM patient WHERE Ptn_Pk=@ptn_pk);
+						
+						SET @ModuleId = (	select top 1 ModuleID from mst_module where ModuleName in ('CLINICALCARE','CareandTreatment'))
 
 						SET @PersonId = (SELECT top 1 PersonId FROM patient WHERE Ptn_Pk=@ptn_pk);
 
