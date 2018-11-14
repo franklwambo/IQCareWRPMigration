@@ -45,7 +45,7 @@ BEGIN
 	FROM mst_Patient INNER JOIN  dbo.Lnk_PatientProgramStart ON dbo.mst_Patient.Ptn_Pk = dbo.Lnk_PatientProgramStart.Ptn_pk 
 	INNER JOIN Patient on  dbo.mst_Patient.Ptn_Pk = dbo.Patient.Ptn_pk
 	LEFT JOIN PatientEnrollment on Patient.id=PatientEnrollment.PatientId
-	--WHERE mst_Patient.DeleteFlag=0
+	WHERE mst_Patient.DeleteFlag=0
 	ORDER BY mst_Patient.Ptn_Pk;
 
 	SELECT @count = COUNT(Id) FROM #Tmst_Patient
