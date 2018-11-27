@@ -3,6 +3,7 @@ BEGIN
     ALTER TABLE mst_patient
     ADD DistrictRegistrationNr varchar(50)
 END
+
 go
 
 DECLARE @RC int
